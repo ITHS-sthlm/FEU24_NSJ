@@ -1,25 +1,21 @@
-fetch('https://avancera.app/cities/')
+fetch('https:avancera.app/cities/')
     .then((response) => {
-        //Steg 3. Kontrollerar om svarskoden/statusen är OK
+        //Ta upp error från responsen om det finns
         if (!response.ok) {
-            throw new Error('Nätverkssvaret var inte ok');
+            throw new Error('Nej detta funka ju inte så bra');
         }
-        //Steg 4. Om responsen är ok så omvandlar vi svaret till JSON format
+        //Här kan vi logga ut responsen om vi vill innan vi returnerar
         return response.json();
     })
     .then((data) => {
-        //Steg 5. Här hanterar vi JSON svaret
-        //Steg 6. Vi använder metoden map() och skapar ett HTML element för varje stad
+        //Arbeta med nod och elementet cityList som ligger i HTML filen
         const cities = data.map((city) => {
-            return `<li>${city.name}, ${city.population}</li>`;
+            return `<li>Stad:
+            ${city.name} antal invånare:  ${city.population}
+            </li>`;
         });
-        console.log(data);
-        //Steg 7. Lägger till de skapade HTML elementen i CityList
-        //den som innerHTML
-        cityList.innerHTML = cities.join(''); //Slår samman arrayen till en sträng och sätter
+        cityList.innerHTML = cities.join('');
     })
     .catch((error) => {
-        //Steg 8. Vi arbetar med catch och error för att logga/upptäcka eventuella
-        //fel som uppstått vid inhämtningen
-        console.log('Hämtningsfel:', error);
+        console.log('Hämtningsfel', error);
     });
